@@ -463,3 +463,4 @@ export default function AutoSlideModal({ isOpen, onClose, data }: AutoSlideModal
     </div>
   );
 }
+
