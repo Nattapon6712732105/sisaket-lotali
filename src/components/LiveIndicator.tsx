@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { RefreshCw, Pause, Play, Clock, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, Pause, Play, Clock } from 'lucide-react';
 
 interface LiveIndicatorProps {
   countdown: number;
@@ -31,7 +31,7 @@ export default function LiveIndicator({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-orange-100 p-4 mb-6 transition-all hover:shadow-md">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-orange-100 dark:border-slate-800 p-4 mb-6 transition-all hover:shadow-md">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Left: Status & Last update time */}
         <div className="flex items-center gap-3">
@@ -43,16 +43,16 @@ export default function LiveIndicator({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-800 text-sm sm:text-base">
+              <span className="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">
                 {isAutoRefresh ? 'ระบบอัปเดตผลรางวัลอัตโนมัติ' : 'ระบบหยุดอัปเดตชั่วคราว'}
               </span>
-              <span className="text-xs bg-orange-100 text-orange-800 font-semibold px-2 py-0.5 rounded-full">
+              <span className="text-xs bg-orange-100 dark:bg-orange-950/80 text-orange-800 dark:text-orange-300 font-semibold px-2 py-0.5 rounded-full border border-orange-200 dark:border-orange-800">
                 ทุกๆ 5 วินาที
               </span>
             </div>
-            <p className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
-              <span>ข้อมูลล่าสุดเวลา: <strong className="text-slate-700">{formatTime(lastUpdated)}</strong></span>
+            <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
+              <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+              <span>ข้อมูลล่าสุดเวลา: <strong className="text-slate-700 dark:text-slate-200">{formatTime(lastUpdated)}</strong></span>
             </p>
           </div>
         </div>
@@ -61,8 +61,8 @@ export default function LiveIndicator({
         <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           {/* Countdown indicator */}
           {isAutoRefresh && (
-            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-              <span className="text-xs text-slate-500">รอบถัดไป:</span>
+            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl">
+              <span className="text-xs text-slate-500 dark:text-slate-400">รอบถัดไป:</span>
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-orange-500 text-white font-bold text-xs shadow-inner">
                 {countdown}s
               </span>
@@ -73,16 +73,16 @@ export default function LiveIndicator({
           <button
             onClick={onToggleAutoRefresh}
             title={isAutoRefresh ? 'หยุดอัปเดตชั่วคราว' : 'เปิดอัปเดตอัตโนมัติ'}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
           >
             {isAutoRefresh ? (
               <>
-                <Pause className="w-3.5 h-3.5 text-slate-600" />
+                <Pause className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                 <span className="hidden sm:inline">พัก</span>
               </>
             ) : (
               <>
-                <Play className="w-3.5 h-3.5 text-emerald-600" />
+                <Play className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span className="hidden sm:inline">เล่นต่อ</span>
               </>
             )}
@@ -102,7 +102,7 @@ export default function LiveIndicator({
 
       {/* Mini Progress Bar for 5s cycle */}
       {isAutoRefresh && (
-        <div className="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+        <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
           <div
             className="bg-gradient-to-r from-orange-400 to-amber-500 h-full transition-all duration-1000 ease-linear rounded-full"
             style={{ width: `${((5 - countdown) / 5) * 100}%` }}
@@ -112,4 +112,3 @@ export default function LiveIndicator({
     </div>
   );
 }
-

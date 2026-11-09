@@ -7,11 +7,17 @@
   --foreground: #0f172a;
 }
 
+.dark {
+  --background: #090d16;
+  --foreground: #f1f5f9;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Sarabun', 'Noto Sans Thai', sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @keyframes pulse-subtle {
@@ -23,23 +29,59 @@ body {
   animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Print Styles */
+/* Print Styles: Official GLO Lottery Sheet Format */
 @media print {
-  header, footer, .no-print, button, input {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 8mm 8mm 8mm;
+  }
+
+  /* Hide regular web UI elements */
+  header,
+  footer,
+  .no-print,
+  button,
+  input,
+  .screen-only {
     display: none !important;
   }
+
   body {
     background: white !important;
     color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 11pt !important;
   }
+
+  /* Show ONLY official print sheet */
   .print-only {
     display: block !important;
   }
-  .printable-area {
+
+  .official-sheet {
+    display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    color: black !important;
+  }
+
+  /* Force table borders in print */
+  .official-sheet table,
+  .official-sheet th,
+  .official-sheet td {
+    border-color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .official-sheet .bg-black {
+    background-color: #000000 !important;
+    color: #ffffff !important;
   }
 }
 
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}

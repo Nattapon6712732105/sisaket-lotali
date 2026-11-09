@@ -54,16 +54,16 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-orange-50/30 to-amber-50/50 rounded-3xl p-6 sm:p-8 border-2 border-orange-200/80 shadow-lg mb-8 no-print">
+    <div className="bg-gradient-to-br from-white via-orange-50/30 to-amber-50/50 dark:from-slate-900 dark:via-orange-950/20 dark:to-slate-900 rounded-3xl p-6 sm:p-8 border-2 border-orange-200/80 dark:border-slate-800 shadow-lg mb-8 no-print transition-colors">
       <div className="max-w-2xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-950/80 text-orange-800 dark:text-orange-300 text-xs font-bold mb-3 border border-orange-200 dark:border-orange-800">
           <Search className="w-3.5 h-3.5" />
           <span>ระบบตรวจผลรางวัลทันใจ</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           ตรวจผลสลากกาชาดศรีสะเกษ
         </h2>
-        <p className="text-xs sm:text-sm text-slate-600 mt-1 mb-6">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 mb-6">
           กรอกหมายเลขสลาก ๖ หลัก เพื่อตรวจรางวัลทั้งหมดแบบอัตโนมัติ
         </p>
 
@@ -81,13 +81,13 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
                 setInputNumber(val);
                 if (hasSearched) setHasSearched(false);
               }}
-              className="w-full text-center px-4 py-3.5 text-2xl font-mono font-bold tracking-widest text-slate-900 bg-white border-2 border-orange-300 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-orange-400/30 focus:border-orange-500 transition-all placeholder:text-slate-300 placeholder:text-base placeholder:tracking-normal"
+              className="w-full text-center px-4 py-3.5 text-2xl font-mono font-bold tracking-widest text-slate-900 dark:text-amber-300 bg-white dark:bg-slate-800 border-2 border-orange-300 dark:border-orange-500/40 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-orange-400/30 focus:border-orange-500 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600 placeholder:text-base placeholder:tracking-normal"
             />
             {inputNumber && (
               <button
                 type="button"
                 onClick={handleClear}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded-full"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-full"
               >
                 ✕
               </button>
@@ -108,44 +108,44 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
         {hasSearched && result && (
           <div className="mt-6 transition-all duration-300">
             {result.isWon ? (
-              <div className="bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-6 text-center animate-bounce-short">
+              <div className="bg-emerald-50 dark:bg-emerald-950/60 border-2 border-emerald-400 dark:border-emerald-600 rounded-2xl p-6 text-center animate-bounce-short">
                 <div className="w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                   <Gift className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-emerald-800">
+                <h3 className="text-xl sm:text-2xl font-black text-emerald-800 dark:text-emerald-300">
                   🎉 ยินดีด้วย! หมายเลข {result.searchedNumber} ถูกรางวัล 🎉
                 </h3>
                 <div className="mt-4 space-y-2">
                   {result.matchedPrizes.map((p, idx) => (
                     <div
                       key={idx}
-                      className="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm max-w-lg mx-auto"
+                      className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 shadow-sm max-w-lg mx-auto"
                     >
-                      <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-sm mb-1">
+                      <span className="inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full font-bold text-sm mb-1">
                         {p.prizeName}
                       </span>
-                      <p className="text-base font-extrabold text-slate-800 mt-1">
-                        ของรางวัล: <span className="text-amber-700">{p.reward}</span>
+                      <p className="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1">
+                        ของรางวัล: <span className="text-amber-700 dark:text-amber-400">{p.reward}</span>
                       </p>
-                      <span className="text-xs text-slate-500 block mt-1">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1">
                         (หมายเลขที่ออก: {p.winningNumber})
                       </span>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-emerald-700 mt-4 font-medium">
+                <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-4 font-medium">
                   * โปรดนำสลากฉบับจริงพร้อมบัตรประจำตัวประชาชนไปติดต่อขอรับรางวัลตามเงื่อนไขที่กำหนด
                 </p>
               </div>
             ) : (
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
-                <div className="w-12 h-12 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center mx-auto mb-2">
+              <div className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-full flex items-center justify-center mx-auto mb-2">
                   <XCircle className="w-6 h-6" />
                 </div>
-                <h4 className="text-lg font-bold text-slate-800">
+                <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200">
                   หมายเลข {result.searchedNumber} ไม่ถูกรางวัล
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                   ขอขอบคุณที่ร่วมทำบุญสนับสนุนกิจกรรมสาธารณกุศลของเหล่ากาชาดจังหวัดศรีสะเกษ
                 </p>
               </div>
