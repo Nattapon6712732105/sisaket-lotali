@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <circle cx="16" cy="16" r="15" fill="#f97316" stroke="#ea580c" stroke-width="1"/>
+  <circle cx="16" cy="16" r="12" fill="#ffffff"/>
+  <!-- Red Cross -->
+  <rect x="13.5" y="8" width="5" height="16" fill="#e11d48" rx="1"/>
+  <rect x="8" y="13.5" width="16" height="5" fill="#e11d48" rx="1"/>
+</svg>
