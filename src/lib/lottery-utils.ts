@@ -1,16 +1,16 @@
 import { LotteryData, CheckResult } from '@/types/lottery';
 
-// Automatically calculate adjacent numbers for first prize (±1 for each 5-digit number)
+// Automatically calculate adjacent numbers for first prize (±1 for each 6-digit number)
 export function calculateAdjacentNumbers(firstPrizeNumbers: (string | null)[]): (string | null)[] {
   const adjacents: (string | null)[] = [];
 
   firstPrizeNumbers.forEach((numStr) => {
-    if (numStr && numStr.trim().length === 5 && !isNaN(Number(numStr))) {
+    if (numStr && numStr.trim().length === 6 && !isNaN(Number(numStr))) {
       const val = parseInt(numStr, 10);
-      const minus1 = val === 0 ? 99999 : val - 1;
-      const plus1 = val === 99999 ? 0 : val + 1;
-      adjacents.push(minus1.toString().padStart(5, '0'));
-      adjacents.push(plus1.toString().padStart(5, '0'));
+      const minus1 = val === 0 ? 999999 : val - 1;
+      const plus1 = val === 999999 ? 0 : val + 1;
+      adjacents.push(minus1.toString().padStart(6, '0'));
+      adjacents.push(plus1.toString().padStart(6, '0'));
     } else {
       adjacents.push(null);
       adjacents.push(null);
@@ -24,7 +24,7 @@ export function calculateAdjacentNumbers(firstPrizeNumbers: (string | null)[]): 
   return adjacents.slice(0, 4);
 }
 
-// Check if a number won any prize
+// Check if a number won any prize (6 digits check)
 export function checkLotteryNumber(data: LotteryData, targetNumber: string): CheckResult {
   const trimmed = targetNumber.trim();
   const result: CheckResult = {
@@ -33,11 +33,11 @@ export function checkLotteryNumber(data: LotteryData, targetNumber: string): Che
     matchedPrizes: [],
   };
 
-  if (!trimmed || trimmed.length !== 5) {
+  if (!trimmed || trimmed.length !== 6) {
     return result;
   }
 
-  // Check 5-digit prizes
+  // Check 6-digit prizes
   const prizesToCheck = [
     data.prizes.firstPrize,
     data.prizes.adjacentFirstPrize,
@@ -60,7 +60,7 @@ export function checkLotteryNumber(data: LotteryData, targetNumber: string): Che
     });
   });
 
-  // Check last 3 digits prize
+  // Check last 3 digits prize (last 3 of 6 digits)
   const last3 = trimmed.slice(-3);
   data.prizes.last3DigitsPrize.numbers.forEach((num) => {
     if (num && num.trim() === last3) {
@@ -75,4 +75,3 @@ export function checkLotteryNumber(data: LotteryData, targetNumber: string): Che
 
   return result;
 }
-

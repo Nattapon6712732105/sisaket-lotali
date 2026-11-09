@@ -3,9 +3,9 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'ผลการออกรางวัลสลากกาชาด งานเทศกาลปีใหม่สี่เผ่าไทยศรีสะเกษ ประจำปี ๒๕๗๐',
-  description: 'ระบบถ่ายทอดและประกาศผลการออกรางวัลสลากกาชาด จังหวัดศรีสะเกษ แบบ Real-time อัปเดตทุก 5 วินาที',
+  description: 'ระบบถ่ายทอดและประกาศผลการออกรางวัลสลากกาชาด จังหวัดศรีสะเกษ แบบ Real-time อัปเดตทุก 5 วินาที พร้อมโหมดสไลด์เวที',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.svg',
   },
 };
 
@@ -24,10 +24,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-gradient-to-b from-orange-50/50 via-slate-50 to-amber-50/30 text-slate-800">
+      <body className="min-h-screen bg-gradient-to-b from-orange-50/50 via-slate-50 to-amber-50/30 text-slate-800 antialiased">
         {children}
       </body>
     </html>
   );
 }
-

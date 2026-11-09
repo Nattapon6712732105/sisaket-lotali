@@ -1,22 +1,22 @@
 'use client';
 
 import React from 'react';
-import { LotteryData, PrizeItem } from '@/types/lottery';
-import { Car, Award, Smartphone, Bike, Snowflake, Fan, Sparkles, AlertCircle } from 'lucide-react';
+import { LotteryData } from '@/types/lottery';
+import { Car, Award, Smartphone, Bike, Snowflake, Fan, Sparkles } from 'lucide-react';
 
 interface PrizeBoardProps {
   data: LotteryData;
 }
 
 export default function PrizeBoard({ data }: PrizeBoardProps) {
-  const renderNumberBox = (num: string | null, digitCount: number = 5, highlight: boolean = false) => {
+  const renderNumberBox = (num: string | null, digitCount: number = 6, highlight: boolean = false) => {
     const isFilled = num && num.trim() !== '';
 
     if (!isFilled) {
       return (
-        <div className="flex items-center justify-center gap-1 sm:gap-2 px-3 py-2 sm:px-4 sm:py-3 bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl text-slate-400 font-mono tracking-widest text-lg sm:text-2xl font-bold select-none shadow-inner">
+        <div className="flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 py-2 sm:px-3 sm:py-2.5 bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl text-slate-400 font-mono tracking-wider text-base sm:text-xl font-bold select-none shadow-inner">
           {Array.from({ length: digitCount }).map((_, i) => (
-            <span key={i} className="inline-block w-4 sm:w-6 text-center border-b-2 border-slate-300 pb-0.5">
+            <span key={i} className="inline-block w-3.5 sm:w-5 text-center border-b-2 border-slate-300 pb-0.5">
               -
             </span>
           ))}
@@ -26,9 +26,9 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
 
     return (
       <div
-        className={`flex items-center justify-center px-4 py-2 sm:px-5 sm:py-3 rounded-xl font-mono tracking-wider text-xl sm:text-3xl font-extrabold shadow-sm transition-all transform hover:scale-105 ${
+        className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-mono tracking-wider text-lg sm:text-2xl font-black shadow-sm transition-all transform hover:scale-105 ${
           highlight
-            ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white shadow-orange-300/50 shadow-md ring-2 ring-amber-300'
+            ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white shadow-orange-300/50 shadow-md ring-2 ring-amber-300 text-xl sm:text-3xl'
             : 'bg-white border-2 border-orange-200 text-slate-900 shadow-sm'
         }`}
       >
@@ -42,10 +42,10 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
   return (
     <div className="space-y-6 printable-area">
       {/* ======================================================== */}
-      {/* TOP ROW: รางวัลที่ ๑ (เด่นที่สุด) & เลขท้าย ๓ ตัว */}
+      {/* TOP ROW: รางวัลที่ ๑ (๖ หลัก เด่นที่สุด) & เลขท้าย ๓ ตัว */}
       {/* ======================================================== */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* รางวัลที่ ๑ (2 รางวัล) */}
+        {/* รางวัลที่ ๑ (2 รางวัล - 6 หลัก) */}
         <div className="lg:col-span-8 bg-gradient-to-br from-amber-500 via-orange-500 to-red-600 rounded-3xl p-1 shadow-xl">
           <div className="bg-gradient-to-b from-white via-orange-50/40 to-amber-50/70 rounded-[22px] p-5 sm:p-6 h-full flex flex-col justify-between">
             <div>
@@ -56,8 +56,8 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs uppercase tracking-wider font-extrabold text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full">
-                        FIRST PRIZE
+                      <span className="text-xs uppercase tracking-wider font-extrabold text-orange-600 bg-orange-100 px-2.5 py-0.5 rounded-full">
+                        FIRST PRIZE (เลข ๖ หลัก)
                       </span>
                       <span className="text-xs text-slate-500 font-medium">จำนวน ๒ รางวัล</span>
                     </div>
@@ -78,9 +78,9 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
                 {prizes.firstPrize.numbers.map((num, idx) => (
                   <div key={idx} className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-orange-200/80 shadow-sm text-center">
                     <span className="text-xs font-bold text-slate-500 block mb-2">
-                      รางวัลที่ ๑ (หมายเลขที่ {idx + 1})
+                      รางวัลที่ ๑ (หมายเลขที่ {idx + 1}) - เลข ๖ หลัก
                     </span>
-                    {renderNumberBox(num, 5, true)}
+                    {renderNumberBox(num, 6, true)}
                   </div>
                 ))}
               </div>
@@ -88,7 +88,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
 
             <div className="text-[11px] text-slate-500 flex items-center gap-1.5 pt-2 border-t border-orange-100">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              <span>สลากมี ๕ หลัก (๐๐๐๐๑ - ๙๙๙๙๙) ตรวจสอบหมายเลขให้ถูกต้องตรงกันทุกหลัก</span>
+              <span>สลากมี ๖ หลัก (๐๐๐๐๐๐ - ๙๙๙๙๙๙) ตรวจสอบหมายเลขให้ถูกต้องตรงกันทุกหลัก</span>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
       </div>
 
       {/* ======================================================== */}
-      {/* SECOND ROW: รางวัลข้างเคียงรางวัลที่ ๑ (๔ รางวัล) */}
+      {/* SECOND ROW: รางวัลข้างเคียงรางวัลที่ ๑ (๔ รางวัล - ๖ หลัก) */}
       {/* ======================================================== */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 border border-amber-200 shadow-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
@@ -143,7 +143,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
                 {prizes.adjacentFirstPrize.name}
               </h3>
               <p className="text-xs text-slate-500">
-                เคียงคู่ขนาน ±๑ ของรางวัลที่ ๑ ทั้ง ๒ หมายเลข (จำนวน ๔ รางวัล)
+                เคียงคู่ขนาน ±๑ ของรางวัลที่ ๑ ทั้ง ๒ หมายเลข (จำนวน ๔ รางวัล • เลข ๖ หลัก)
               </p>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
               <span className="text-[11px] font-semibold text-slate-500 block mb-1">
                 ข้างเคียงที่ {idx + 1}
               </span>
-              {renderNumberBox(num, 5, false)}
+              {renderNumberBox(num, 6, false)}
             </div>
           ))}
         </div>
@@ -179,7 +179,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                   {prizes.secondPrize.name}
                 </h3>
-                <span className="text-xs text-slate-500">จำนวน ๓ รางวัล</span>
+                <span className="text-xs text-slate-500">จำนวน ๓ รางวัล (เลข ๖ หลัก)</span>
               </div>
             </div>
             <span className="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-lg">
@@ -191,7 +191,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
             {prizes.secondPrize.numbers.map((num, idx) => (
               <div key={idx} className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200/70 text-center">
                 <span className="text-[11px] font-semibold text-slate-400 block mb-1">ลำดับที่ {idx + 1}</span>
-                {renderNumberBox(num, 5, false)}
+                {renderNumberBox(num, 6, false)}
               </div>
             ))}
           </div>
@@ -208,7 +208,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                   {prizes.thirdPrize.name}
                 </h3>
-                <span className="text-xs text-slate-500">จำนวน ๓ รางวัล</span>
+                <span className="text-xs text-slate-500">จำนวน ๓ รางวัล (เลข ๖ หลัก)</span>
               </div>
             </div>
             <span className="text-xs font-bold text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">
@@ -220,7 +220,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
             {prizes.thirdPrize.numbers.map((num, idx) => (
               <div key={idx} className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200/70 text-center">
                 <span className="text-[11px] font-semibold text-slate-400 block mb-1">ลำดับที่ {idx + 1}</span>
-                {renderNumberBox(num, 5, false)}
+                {renderNumberBox(num, 6, false)}
               </div>
             ))}
           </div>
@@ -240,7 +240,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
               <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                 {prizes.fourthPrize.name}
               </h3>
-              <p className="text-xs text-slate-500">จำนวน ๕ รางวัล</p>
+              <p className="text-xs text-slate-500">จำนวน ๕ รางวัล (เลข ๖ หลัก)</p>
             </div>
           </div>
           <span className="text-xs sm:text-sm font-bold text-red-700 bg-red-50 px-3 py-1 rounded-xl border border-red-100">
@@ -252,7 +252,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
           {prizes.fourthPrize.numbers.map((num, idx) => (
             <div key={idx} className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200/70 text-center">
               <span className="text-[11px] font-semibold text-slate-400 block mb-1">ลำดับที่ {idx + 1}</span>
-              {renderNumberBox(num, 5, false)}
+              {renderNumberBox(num, 6, false)}
             </div>
           ))}
         </div>
@@ -271,7 +271,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
               <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                 {prizes.fifthPrize.name}
               </h3>
-              <p className="text-xs text-slate-500">จำนวน ๑๐ รางวัล</p>
+              <p className="text-xs text-slate-500">จำนวน ๑๐ รางวัล (เลข ๖ หลัก)</p>
             </div>
           </div>
           <span className="text-xs sm:text-sm font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-xl border border-teal-100">
@@ -283,7 +283,7 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
           {prizes.fifthPrize.numbers.map((num, idx) => (
             <div key={idx} className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200/70 text-center">
               <span className="text-[11px] font-semibold text-slate-400 block mb-1">ลำดับที่ {idx + 1}</span>
-              {renderNumberBox(num, 5, false)}
+              {renderNumberBox(num, 6, false)}
             </div>
           ))}
         </div>
@@ -291,4 +291,3 @@ export default function PrizeBoard({ data }: PrizeBoardProps) {
     </div>
   );
 }
-

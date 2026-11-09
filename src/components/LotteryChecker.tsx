@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Search, CheckCircle2, XCircle, Sparkles, RefreshCcw, Gift } from 'lucide-react';
+import { Search, Gift, XCircle, Sparkles } from 'lucide-react';
 import { CheckResult, LotteryData } from '@/types/lottery';
 import { checkLotteryNumber } from '@/lib/lottery-utils';
 
@@ -28,8 +28,8 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
     if (e) e.preventDefault();
     const clean = inputNumber.trim();
 
-    if (clean.length !== 5) {
-      alert('กรุณากรอกหมายเลขสลากให้ครบ ๕ หลัก (เช่น 01234)');
+    if (clean.length !== 6) {
+      alert('กรุณากรอกหมายเลขสลากให้ครบ ๖ หลัก (เช่น 012345)');
       return;
     }
 
@@ -64,7 +64,7 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
           ตรวจผลสลากกาชาดศรีสะเกษ
         </h2>
         <p className="text-xs sm:text-sm text-slate-600 mt-1 mb-6">
-          กรอกหมายเลขสลาก ๕ หลัก เพื่อตรวจรางวัลทั้งหมดแบบอัตโนมัติ
+          กรอกหมายเลขสลาก ๖ หลัก เพื่อตรวจรางวัลทั้งหมดแบบอัตโนมัติ
         </p>
 
         {/* Input Form */}
@@ -72,9 +72,9 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
           <div className="relative w-full sm:w-80">
             <input
               type="text"
-              maxLength={5}
+              maxLength={6}
               inputMode="numeric"
-              placeholder="กรอกเลข ๕ หลัก (เช่น 12345)"
+              placeholder="กรอกเลข ๖ หลัก (เช่น 123456)"
               value={inputNumber}
               onChange={(e) => {
                 const val = e.target.value.replace(/\D/g, '');
@@ -96,7 +96,7 @@ export default function LotteryChecker({ data }: LotteryCheckerProps) {
 
           <button
             type="submit"
-            disabled={inputNumber.length !== 5 || isChecking}
+            disabled={inputNumber.length !== 6 || isChecking}
             className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold rounded-2xl shadow-md hover:shadow-lg active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             <Sparkles className="w-5 h-5 text-amber-200" />

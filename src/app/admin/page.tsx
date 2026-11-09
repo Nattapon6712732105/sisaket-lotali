@@ -146,7 +146,7 @@ export default function AdminPage() {
     prizeKey: keyof LotteryData['prizes'],
     index: number,
     value: string,
-    digitCount: number = 5
+    digitCount: number = 6
   ) => {
     // Only digits
     const cleaned = value.replace(/\D/g, '').slice(0, digitCount);
@@ -159,7 +159,7 @@ export default function AdminPage() {
         numbers: newNumbers,
       };
 
-      // If user typed in First Prize, automatically calculate adjacent numbers if desired
+      // If user typed in First Prize, automatically calculate adjacent numbers (6 digits)
       if (prizeKey === 'firstPrize') {
         const autoAdjacent = calculateAdjacentNumbers(newNumbers);
         updated.prizes.adjacentFirstPrize.numbers = autoAdjacent;
@@ -184,15 +184,15 @@ export default function AdminPage() {
     }));
   };
 
-  // Random generate test numbers
+  // Random generate test numbers (6 digits for prizes 1-5, 3 digits for last 3)
   const handleFillTestData = () => {
     if (!confirm('ต้องการสุ่มหมายเลขตัวอย่างใส่ทุกรางวัลเพื่อทดสอบใช่หรือไม่?')) return;
 
-    const random5 = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
+    const random6 = () => Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
     const random3 = () => Math.floor(Math.random() * 1000).toString().padStart(3, '0');
 
-    const first1 = random5();
-    const first2 = random5();
+    const first1 = random6();
+    const first2 = random6();
     const adj = calculateAdjacentNumbers([first1, first2]);
 
     setFormData((prev) => ({
@@ -210,19 +210,19 @@ export default function AdminPage() {
         },
         secondPrize: {
           ...prev.prizes.secondPrize,
-          numbers: [random5(), random5(), random5()],
+          numbers: [random6(), random6(), random6()],
         },
         thirdPrize: {
           ...prev.prizes.thirdPrize,
-          numbers: [random5(), random5(), random5()],
+          numbers: [random6(), random6(), random6()],
         },
         fourthPrize: {
           ...prev.prizes.fourthPrize,
-          numbers: [random5(), random5(), random5(), random5(), random5()],
+          numbers: [random6(), random6(), random6(), random6(), random6()],
         },
         fifthPrize: {
           ...prev.prizes.fifthPrize,
-          numbers: Array.from({ length: 10 }).map(() => random5()),
+          numbers: Array.from({ length: 10 }).map(() => random6()),
         },
         last3DigitsPrize: {
           ...prev.prizes.last3DigitsPrize,
@@ -309,7 +309,7 @@ export default function AdminPage() {
             </div>
             <h1 className="text-2xl font-black text-slate-900">เข้าสู่ระบบผู้ดูแลระบบ</h1>
             <p className="text-xs text-slate-500 mt-1">
-              ระบบกรอกผลรางวัลสลากกาชาดศรีสะเกษ ๒๕๗๐
+              ระบบกรอกผลรางวัลสลากกาชาดศรีสะเกษ ๒๕๗๐ (เลข ๖ หลัก)
             </p>
           </div>
 
@@ -385,7 +385,7 @@ export default function AdminPage() {
             <div>
               <span className="font-extrabold text-sm sm:text-base text-amber-400">ADMIN CONTROL CENTER</span>
               <span className="block text-[11px] text-slate-400">
-                ระบบจัดการผลสลากกาชาดศรีสะเกษ ๒๕๗๐
+                ระบบจัดการผลสลากกาชาดศรีสะเกษ ๒๕๗๐ (เลข ๖ หลัก)
               </span>
             </div>
           </div>
@@ -451,7 +451,7 @@ export default function AdminPage() {
         {/* Quick Toolbar */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-800">เครื่องมือจัดการข้อมูลสลาก</h2>
+            <h2 className="text-lg font-bold text-slate-800">เครื่องมือจัดการข้อมูลสลาก (เลข ๖ หลัก)</h2>
             <p className="text-xs text-slate-500">
               สถานะปัจจุบัน: <strong className="text-orange-600 uppercase">{formData.status}</strong> • อัปเดตล่าสุด: {new Date(formData.updatedAt).toLocaleTimeString('th-TH')}
             </p>
@@ -488,14 +488,14 @@ export default function AdminPage() {
         {/* INPUT FORM SECTIONS */}
         {/* ================================================================= */}
         <div className="space-y-6">
-          {/* SECTION 1: รางวัลที่ ๑ (2 รางวัล) */}
+          {/* SECTION 1: รางวัลที่ ๑ (2 รางวัล - 6 หลัก) */}
           <div className="bg-white rounded-3xl p-6 border-2 border-orange-300 shadow-md">
             <div className="flex items-center gap-3 border-b border-orange-100 pb-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-orange-600 text-white flex items-center justify-center">
                 <Car className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">{formData.prizes.firstPrize.name}</h3>
+                <h3 className="text-xl font-bold text-slate-900">{formData.prizes.firstPrize.name} (เลข ๖ หลัก)</h3>
                 <span className="text-xs text-orange-700 font-semibold">
                   {formData.prizes.firstPrize.reward} (จำนวน ๒ รางวัล)
                 </span>
@@ -506,25 +506,25 @@ export default function AdminPage() {
               {formData.prizes.firstPrize.numbers.map((num, idx) => (
                 <div key={idx} className="bg-orange-50/50 p-4 rounded-2xl border border-orange-200">
                   <label className="block text-xs font-bold text-orange-900 mb-2">
-                    รางวัลที่ ๑ (หมายเลขที่ {idx + 1}) - เลข ๕ หลัก
+                    รางวัลที่ ๑ (หมายเลขที่ {idx + 1}) - เลข ๖ หลัก
                   </label>
                   <input
                     type="text"
-                    maxLength={5}
-                    placeholder="เช่น 12345 (เว้นว่างได้)"
+                    maxLength={6}
+                    placeholder="เช่น 123456 (เว้นว่างได้)"
                     value={num || ''}
-                    onChange={(e) => handleNumberChange('firstPrize', idx, e.target.value, 5)}
+                    onChange={(e) => handleNumberChange('firstPrize', idx, e.target.value, 6)}
                     className="w-full text-center py-3 text-2xl font-mono font-bold tracking-widest text-slate-900 bg-white border-2 border-orange-300 rounded-xl focus:ring-4 focus:ring-orange-300 focus:outline-none"
                   />
                   <span className="text-[10px] text-slate-500 mt-1 block text-center">
-                    เมื่อกรอกเลขนี้ ระบบจะคำนวณรางวัลข้างเคียง ±๑ ให้อัตโนมัติ
+                    เมื่อกรอกเลขนี้ ระบบจะคำนวณรางวัลข้างเคียง ±๑ ให้อัตโนมัติ (๖ หลัก)
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* SECTION 2: รางวัลข้างเคียงรางวัลที่ ๑ (4 รางวัล) */}
+          {/* SECTION 2: รางวัลข้างเคียงรางวัลที่ ๑ (4 รางวัล - 6 หลัก) */}
           <div className="bg-white rounded-3xl p-6 border border-amber-200 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-3">
@@ -532,7 +532,7 @@ export default function AdminPage() {
                   <Award className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">{formData.prizes.adjacentFirstPrize.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900">{formData.prizes.adjacentFirstPrize.name} (เลข ๖ หลัก)</h3>
                   <span className="text-xs text-slate-500">{formData.prizes.adjacentFirstPrize.reward}</span>
                 </div>
               </div>
@@ -553,10 +553,10 @@ export default function AdminPage() {
                   </label>
                   <input
                     type="text"
-                    maxLength={5}
-                    placeholder="-----"
+                    maxLength={6}
+                    placeholder="------"
                     value={num || ''}
-                    onChange={(e) => handleNumberChange('adjacentFirstPrize', idx, e.target.value, 5)}
+                    onChange={(e) => handleNumberChange('adjacentFirstPrize', idx, e.target.value, 6)}
                     className="w-full text-center py-2 text-lg font-mono font-bold tracking-wider text-slate-900 bg-white border border-amber-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:outline-none"
                   />
                 </div>
@@ -564,7 +564,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* SECTION 3: รางวัลที่ ๒ (3 รางวัล) & รางวัลที่ ๓ (3 รางวัล) */}
+          {/* SECTION 3: รางวัลที่ ๒ (3 รางวัล) & รางวัลที่ ๓ (3 รางวัล) - 6 หลัก */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* รางวัลที่ ๒ */}
             <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm">
@@ -574,7 +574,7 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900">{formData.prizes.secondPrize.name}</h3>
-                  <span className="text-xs text-slate-500">{formData.prizes.secondPrize.reward} (๓ รางวัล)</span>
+                  <span className="text-xs text-slate-500">{formData.prizes.secondPrize.reward} (๓ รางวัล • เลข ๖ หลัก)</span>
                 </div>
               </div>
 
@@ -586,10 +586,10 @@ export default function AdminPage() {
                     </label>
                     <input
                       type="text"
-                      maxLength={5}
-                      placeholder="-----"
+                      maxLength={6}
+                      placeholder="------"
                       value={num || ''}
-                      onChange={(e) => handleNumberChange('secondPrize', idx, e.target.value, 5)}
+                      onChange={(e) => handleNumberChange('secondPrize', idx, e.target.value, 6)}
                       className="w-full text-center py-2 text-base font-mono font-bold tracking-wider bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
                     />
                   </div>
@@ -605,7 +605,7 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900">{formData.prizes.thirdPrize.name}</h3>
-                  <span className="text-xs text-slate-500">{formData.prizes.thirdPrize.reward} (๓ รางวัล)</span>
+                  <span className="text-xs text-slate-500">{formData.prizes.thirdPrize.reward} (๓ รางวัล • เลข ๖ หลัก)</span>
                 </div>
               </div>
 
@@ -617,10 +617,10 @@ export default function AdminPage() {
                     </label>
                     <input
                       type="text"
-                      maxLength={5}
-                      placeholder="-----"
+                      maxLength={6}
+                      placeholder="------"
                       value={num || ''}
-                      onChange={(e) => handleNumberChange('thirdPrize', idx, e.target.value, 5)}
+                      onChange={(e) => handleNumberChange('thirdPrize', idx, e.target.value, 6)}
                       className="w-full text-center py-2 text-base font-mono font-bold tracking-wider bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
                     />
                   </div>
@@ -629,7 +629,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* SECTION 4: รางวัลที่ ๔ (5 รางวัล) */}
+          {/* SECTION 4: รางวัลที่ ๔ (5 รางวัล - 6 หลัก) */}
           <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm">
             <div className="flex items-center gap-3 border-b border-slate-100 pb-3 mb-4">
               <div className="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center">
@@ -637,7 +637,7 @@ export default function AdminPage() {
               </div>
               <div>
                 <h3 className="font-bold text-slate-900">{formData.prizes.fourthPrize.name}</h3>
-                <span className="text-xs text-slate-500">{formData.prizes.fourthPrize.reward} (๕ รางวัล)</span>
+                <span className="text-xs text-slate-500">{formData.prizes.fourthPrize.reward} (๕ รางวัล • เลข ๖ หลัก)</span>
               </div>
             </div>
 
@@ -649,10 +649,10 @@ export default function AdminPage() {
                   </label>
                   <input
                     type="text"
-                    maxLength={5}
-                    placeholder="-----"
+                    maxLength={6}
+                    placeholder="------"
                     value={num || ''}
-                    onChange={(e) => handleNumberChange('fourthPrize', idx, e.target.value, 5)}
+                    onChange={(e) => handleNumberChange('fourthPrize', idx, e.target.value, 6)}
                     className="w-full text-center py-2 text-base font-mono font-bold tracking-wider bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
                   />
                 </div>
@@ -660,7 +660,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* SECTION 5: รางวัลที่ ๕ (10 รางวัล) */}
+          {/* SECTION 5: รางวัลที่ ๕ (10 รางวัล - 6 หลัก) */}
           <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm">
             <div className="flex items-center gap-3 border-b border-slate-100 pb-3 mb-4">
               <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center">
@@ -668,7 +668,7 @@ export default function AdminPage() {
               </div>
               <div>
                 <h3 className="font-bold text-slate-900">{formData.prizes.fifthPrize.name}</h3>
-                <span className="text-xs text-slate-500">{formData.prizes.fifthPrize.reward} (๑๐ รางวัล)</span>
+                <span className="text-xs text-slate-500">{formData.prizes.fifthPrize.reward} (๑๐ รางวัล • เลข ๖ หลัก)</span>
               </div>
             </div>
 
@@ -680,10 +680,10 @@ export default function AdminPage() {
                   </label>
                   <input
                     type="text"
-                    maxLength={5}
-                    placeholder="-----"
+                    maxLength={6}
+                    placeholder="------"
                     value={num || ''}
-                    onChange={(e) => handleNumberChange('fifthPrize', idx, e.target.value, 5)}
+                    onChange={(e) => handleNumberChange('fifthPrize', idx, e.target.value, 6)}
                     className="w-full text-center py-2 text-base font-mono font-bold tracking-wider bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
                   />
                 </div>
@@ -718,7 +718,7 @@ export default function AdminPage() {
                 className="w-full text-center py-3 text-3xl font-mono font-extrabold tracking-widest text-blue-900 bg-blue-50/50 border-2 border-blue-300 rounded-xl focus:bg-white focus:ring-4 focus:ring-blue-300 focus:outline-none"
               />
               <span className="text-xs text-slate-400 mt-2 block">
-                สลากกาชาดฉบับใดที่เลขท้าย ๓ หลักตรงกับเลขนี้ จะถือว่าถูกรางวัลที่ ๖
+                สลากกาชาด ๖ หลักฉบับใดที่เลขท้าย ๓ หลักตรงกับเลขนี้ จะถือว่าถูกรางวัลที่ ๖
               </span>
             </div>
           </div>
@@ -729,7 +729,7 @@ export default function AdminPage() {
           <div>
             <h4 className="text-lg font-bold">ยืนยันและเผยแพร่ข้อมูลผลรางวัล</h4>
             <p className="text-xs text-slate-400">
-              เมื่อกดบันทึก หน้าบ้านของผู้ใช้งานทุกคนจะอัปเดตทันทีภายในรอบ ๕ วินาที
+              เมื่อกดบันทึก หน้าบ้านและโหมดสไลด์ของผู้ใช้งานทุกคนจะอัปเดตทันทีภายในรอบ ๕ วินาที
             </p>
           </div>
 
