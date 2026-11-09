@@ -78,3 +78,4 @@ git push -u origin main
    - `ADMIN_JWT_SECRET` = `ssk-lottery-secure-jwt-secret-key-99999-sisaket-2027`
    - *(ทางเลือกเสริม)* ถ้าต้องการ persistent database ข้าม serverless instance บน Vercel สามารถเชื่อมต่อ **Upstash Redis** ฟรีผ่าน Vercel Marketplace แล้วระบบจะ sync ข้อมูลให้อัตโนมัติทันที
 5. คลิก **Deploy** แล้วรอประมาณ 1 นาที ระบบจะพร้อมใช้งานทันที!
+

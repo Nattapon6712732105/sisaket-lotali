@@ -75,3 +75,4 @@ export function checkLotteryNumber(data: LotteryData, targetNumber: string): Che
 
   return result;
 }
+

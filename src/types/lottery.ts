@@ -121,3 +121,4 @@ export const INITIAL_LOTTERY_DATA: LotteryData = {
     },
   },
 };
+

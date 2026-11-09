@@ -11,3 +11,4 @@ export async function POST() {
   response.cookies.delete('admin_token');
   return response;
 }
+
